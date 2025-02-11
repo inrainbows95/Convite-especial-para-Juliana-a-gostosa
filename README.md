@@ -1,4 +1,3 @@
-# convite-juleanar-gostosa
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -35,25 +34,31 @@
         .gif-container {
             margin-top: 20px;
         }
+        #player {
+            display: none; /* Esconde o player do YouTube */
+        }
     </style>
 </head>
 <body>
     <h1>A sintaxe da minha vida anda meio confusa...</h1>
     <h2>Será que um encontro com você poderia dar mais sentido a tudo?</h2>
-    <img src="aceita-sushi" alt="Convite Criativo">
+    <img src="aceita-sushi.jpg" alt="">
     <div class="buttons">
         <button id="sim">Sim</button>
         <button id="nao">Não</button>
     </div>
     <div class="gif-container hidden" id="gif-container">
-        <img src="dancing.gif" alt="Personagem Dançando">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/pfcSqId5Ce4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <img src="dancing.gif" alt="">
     </div>
+
+    <!-- Player do YouTube (escondido) -->
+    <iframe id="player" width="0" height="0" src="https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
     <script>
         const simButton = document.getElementById('sim');
         const naoButton = document.getElementById('nao');
         const gifContainer = document.getElementById('gif-container');
+        const player = document.getElementById('player');
 
         naoButton.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - naoButton.offsetWidth);
@@ -63,8 +68,9 @@
         });
 
         simButton.addEventListener('click', () => {
-            gifContainer.classList.remove('hidden');
-            document.body.style.backgroundImage = "url('fogos.gif')";
+            gifContainer.classList.remove('hidden'); // Mostra o GIF
+            document.body.style.backgroundImage = "url('fogos.gif')"; // Muda o fundo
+            player.style.display = 'block'; // Toca o vídeo (áudio)
         });
     </script>
 </body>
