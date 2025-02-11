@@ -25,11 +25,6 @@
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
         .buttons {
             margin-top: 20px;
         }
@@ -57,13 +52,13 @@
             margin-top: 20px;
             font-size: 1.5em;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <h1>A sintaxe da minha vida anda meio confusa...</h1>
     <h1>Será que um sushi com você poderia dar mais sentido a tudo?</h1>
-    <img src="shadow-sush.gif" alt="Sushi Animado">
     <div class="buttons">
         <button id="sim">Sim</button>
         <button id="nao">Não</button>
@@ -71,7 +66,7 @@
     <div id="confirmacao" class="hidden">Certeza?</div>
 
     <!-- Vídeo do YouTube (oculto) -->
-    <iframe id="youtube-audio" width="0" height="0" src="https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0&loop=1&playlist=pfcSqId5Ce4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe id="youtube-audio" width="0" height="0" style="display:none;"></iframe>
 
     <script>
         const simButton = document.getElementById('sim');
@@ -87,11 +82,16 @@
             naoButton.style.top = `${y}px`;
         });
 
-        // Ao clicar em "Sim", exibe a confirmação e toca a música
+        // Ao clicar em "Sim", exibe a confirmação
         simButton.addEventListener('click', () => {
             confirmacao.classList.remove('hidden');
-            youtubeAudio.src += "?autoplay=1"; // Força o vídeo a tocar
+        });
+
+        // Ao clicar em "Certeza?", toca a música
+        confirmacao.addEventListener('click', () => {
+            youtubeAudio.src = "https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0&loop=1&playlist=pfcSqId5Ce4";
         });
     </script>
 </body>
 </html>
+
