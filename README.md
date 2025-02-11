@@ -14,7 +14,7 @@
             overflow: hidden;
         }
         h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #333;
         }
         .buttons {
@@ -36,24 +36,6 @@
         .hidden {
             display: none;
         }
-        .fogos {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .fogos img {
-            position: absolute;
-            width: 120px;
-            animation: fogos 2s infinite;
-        }
-        @keyframes fogos {
-            0% { transform: translateY(0) rotate(0); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
         #aceita-sushi {
             max-width: 100%;
             height: auto;
@@ -62,8 +44,16 @@
             z-index: 2;
             position: relative;
         }
-        iframe {
+        .confirm-box {
             display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
@@ -74,50 +64,46 @@
         <button id="sim">Sim, com certeza!</button>
         <button id="nao">Não</button>
     </div>
-    <img id="aceita-sushi" src="aceita-sushi.jpg" alt="Sushi" class="hidden">
-
-    <!-- Fogos de artifício -->
-    <div class="fogos hidden" id="fogos">
-        <img src="fogo1.gif" alt="Fogos" style="left: 10%; top: 20%;">
-        <img src="fogo2.gif" alt="Fogos" style="right: 10%; top: 30%;">
-        <img src="fogo3.gif" alt="Fogos" style="left: 50%; top: 40%;">
+    <img id="aceita-sushi" src="aceita-sushi.png" alt="" class="hidden">
+    
+    <div class="confirm-box" id="confirm-box">
+        <p>Certeza?</p>
+        <button id="confirm-sim">Sim!</button>
     </div>
-
-    <!-- Áudio do YouTube (inicialmente oculto) -->
-    <iframe id="youtube-audio" width="0" height="0" src="https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0&loop=1&playlist=pfcSqId5Ce4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
+    
     <script>
         const simButton = document.getElementById('sim');
         const naoButton = document.getElementById('nao');
         const aceitaSushi = document.getElementById('aceita-sushi');
-        const fogos = document.getElementById('fogos');
-        let firstClick = true;
+        const confirmBox = document.getElementById('confirm-box');
+        const confirmSim = document.getElementById('confirm-sim');
 
         // Faz o botão "Não" fugir do cursor
         naoButton.addEventListener('mouseover', () => {
-            const maxX = window.innerWidth - naoButton.offsetWidth - 20;
-            const maxY = window.innerHeight - naoButton.offsetHeight - 20;
-            const x = Math.random() * maxX;
-            const y = Math.random() * maxY;
+            const x = Math.random() * (window.innerWidth - naoButton.offsetWidth);
+            const y = Math.random() * (window.innerHeight - naoButton.offsetHeight);
             naoButton.style.left = `${x}px`;
             naoButton.style.top = `${y}px`;
         });
 
-        // Ao clicar em "Sim", exibe a imagem e os fogos, e toca a música
+        // Ao clicar em "Sim", aparece a confirmação
         simButton.addEventListener('click', () => {
-            aceitaSushi.classList.remove('hidden');
-            fogos.classList.remove('hidden');
+            confirmBox.style.display = 'block';
+        });
 
-            if (firstClick) {
-                // Força o áudio a tocar
-                const audioIframe = document.createElement('iframe');
-                audioIframe.width = "0";
-                audioIframe.height = "0";
-                audioIframe.src = "https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1";
-                audioIframe.allow = "autoplay";
-                document.body.appendChild(audioIframe);
-                firstClick = false;
-            }
+        // Quando confirma, exibe a imagem e toca a música
+        confirmSim.addEventListener('click', () => {
+            confirmBox.style.display = 'none';
+            aceitaSushi.classList.remove('hidden');
+            
+            // Cria um elemento de áudio do YouTube
+            const audio = document.createElement('iframe');
+            audio.width = '0';
+            audio.height = '0';
+            audio.src = "https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0";
+            audio.frameBorder = '0';
+            audio.allow = 'autoplay';
+            document.body.appendChild(audio);
         });
     </script>
 </body>
