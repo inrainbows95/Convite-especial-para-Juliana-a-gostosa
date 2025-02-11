@@ -47,7 +47,7 @@
         }
         .fogos img {
             position: absolute;
-            width: 100px;
+            width: 120px;
             animation: fogos 2s infinite;
         }
         @keyframes fogos {
@@ -62,6 +62,9 @@
             z-index: 2;
             position: relative;
         }
+        iframe {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -71,16 +74,16 @@
         <button id="sim">Sim, com certeza!</button>
         <button id="nao">Não</button>
     </div>
-    <img id="aceita-sushi" src="aceita-sushi.jpg" alt="" class="hidden">
+    <img id="aceita-sushi" src="aceita-sushi.jpg" alt="Sushi" class="hidden">
 
     <!-- Fogos de artifício -->
     <div class="fogos hidden" id="fogos">
-        <img src="fogo1.gif" alt="">
-        <img src="fogo2.gif" alt="">
-        <img src="fogo3.gif" alt="">
+        <img src="fogo1.gif" alt="Fogos" style="left: 10%; top: 20%;">
+        <img src="fogo2.gif" alt="Fogos" style="right: 10%; top: 30%;">
+        <img src="fogo3.gif" alt="Fogos" style="left: 50%; top: 40%;">
     </div>
 
-    <!-- Áudio do YouTube (oculto) -->
+    <!-- Áudio do YouTube (inicialmente oculto) -->
     <iframe id="youtube-audio" width="0" height="0" src="https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0&loop=1&playlist=pfcSqId5Ce4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
     <script>
@@ -88,11 +91,14 @@
         const naoButton = document.getElementById('nao');
         const aceitaSushi = document.getElementById('aceita-sushi');
         const fogos = document.getElementById('fogos');
+        let firstClick = true;
 
         // Faz o botão "Não" fugir do cursor
         naoButton.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - naoButton.offsetWidth);
-            const y = Math.random() * (window.innerHeight - naoButton.offsetHeight);
+            const maxX = window.innerWidth - naoButton.offsetWidth - 20;
+            const maxY = window.innerHeight - naoButton.offsetHeight - 20;
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
             naoButton.style.left = `${x}px`;
             naoButton.style.top = `${y}px`;
         });
@@ -102,9 +108,16 @@
             aceitaSushi.classList.remove('hidden');
             fogos.classList.remove('hidden');
 
-            // Força o vídeo do YouTube a tocar
-            const youtubeAudio = document.getElementById('youtube-audio');
-            youtubeAudio.src += "?autoplay=1"; // Adiciona autoplay à URL
+            if (firstClick) {
+                // Força o áudio a tocar
+                const audioIframe = document.createElement('iframe');
+                audioIframe.width = "0";
+                audioIframe.height = "0";
+                audioIframe.src = "https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1";
+                audioIframe.allow = "autoplay";
+                document.body.appendChild(audioIframe);
+                firstClick = false;
+            }
         });
     </script>
 </body>
