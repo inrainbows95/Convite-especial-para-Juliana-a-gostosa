@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -34,8 +35,11 @@
         .gif-container {
             margin-top: 20px;
         }
-        #player {
-            display: none; /* Esconde o player do YouTube */
+        /* Estilo para esconder o vídeo do YouTube */
+        #youtube-audio {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
         }
     </style>
 </head>
@@ -51,15 +55,15 @@
         <img src="dancing.gif" alt="">
     </div>
 
-    <!-- Player do YouTube (escondido) -->
-    <iframe id="player" width="0" height="0" src="https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <!-- Vídeo do YouTube (oculto) -->
+    <iframe id="youtube-audio" width="0" height="0" src="https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0&loop=1&playlist=pfcSqId5Ce4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
     <script>
         const simButton = document.getElementById('sim');
         const naoButton = document.getElementById('nao');
         const gifContainer = document.getElementById('gif-container');
-        const player = document.getElementById('player');
 
+        // Faz o botão "Não" fugir do cursor
         naoButton.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - naoButton.offsetWidth);
             const y = Math.random() * (window.innerHeight - naoButton.offsetHeight);
@@ -67,10 +71,14 @@
             naoButton.style.top = `${y}px`;
         });
 
+        // Ao clicar em "Sim", exibe o GIF e toca a música
         simButton.addEventListener('click', () => {
-            gifContainer.classList.remove('hidden'); // Mostra o GIF
-            document.body.style.backgroundImage = "url('fogos.gif')"; // Muda o fundo
-            player.style.display = 'block'; // Toca o vídeo (áudio)
+            gifContainer.classList.remove('hidden');
+            document.body.style.backgroundImage = "url('fogos.gif')";
+
+            // Força o vídeo do YouTube a tocar
+            const youtubeAudio = document.getElementById('youtube-audio');
+            youtubeAudio.src += "?autoplay=1"; // Adiciona autoplay à URL
         });
     </script>
 </body>
