@@ -1,21 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convite Especial</title>
+    <title>Convite para a Juliana</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #ffb6c1;
+            background-color: #ffb6c1; /* Fundo rosa */
             padding: 50px;
+            margin: 0;
+            overflow: hidden;
         }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
         }
         .buttons {
             margin-top: 20px;
@@ -25,6 +25,10 @@
             font-size: 18px;
             cursor: pointer;
             margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff69b4;
+            color: white;
         }
         #nao {
             position: absolute;
@@ -32,36 +36,58 @@
         .hidden {
             display: none;
         }
-        .gif-container {
-            margin-top: 20px;
-        }
-        /* Estilo para esconder o vídeo do YouTube */
-        #youtube-audio {
+        .fogos {
             position: absolute;
-            top: -9999px;
-            left: -9999px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .fogos img {
+            position: absolute;
+            width: 100px;
+            animation: fogos 2s infinite;
+        }
+        @keyframes fogos {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        #aceita-sushi {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+            z-index: 2;
+            position: relative;
         }
     </style>
 </head>
 <body>
     <h1>A sintaxe da minha vida anda meio confusa...</h1>
-    <h2>Será que um encontro com você poderia dar mais sentido a tudo?</h2>
-    <img src="aceita-sushi.jpg" alt="">
+    <h2>Será que um sushi com você poderia dar mais sentido a tudo?</h2>
     <div class="buttons">
-        <button id="sim">Sim</button>
+        <button id="sim">Sim, com certeza!</button>
         <button id="nao">Não</button>
     </div>
-    <div class="gif-container hidden" id="gif-container">
-        <img src="dancing.gif" alt="">
+    <img id="aceita-sushi" src="aceita-sushi.jpg" alt="" class="hidden">
+
+    <!-- Fogos de artifício -->
+    <div class="fogos hidden" id="fogos">
+        <img src="fogo1.gif" alt="">
+        <img src="fogo2.gif" alt="">
+        <img src="fogo3.gif" alt="">
     </div>
 
-    <!-- Vídeo do YouTube (oculto) -->
+    <!-- Áudio do YouTube (oculto) -->
     <iframe id="youtube-audio" width="0" height="0" src="https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0&loop=1&playlist=pfcSqId5Ce4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
     <script>
         const simButton = document.getElementById('sim');
         const naoButton = document.getElementById('nao');
-        const gifContainer = document.getElementById('gif-container');
+        const aceitaSushi = document.getElementById('aceita-sushi');
+        const fogos = document.getElementById('fogos');
 
         // Faz o botão "Não" fugir do cursor
         naoButton.addEventListener('mouseover', () => {
@@ -71,10 +97,10 @@
             naoButton.style.top = `${y}px`;
         });
 
-        // Ao clicar em "Sim", exibe o GIF e toca a música
+        // Ao clicar em "Sim", exibe a imagem e os fogos, e toca a música
         simButton.addEventListener('click', () => {
-            gifContainer.classList.remove('hidden');
-            document.body.style.backgroundImage = "url('fogos.gif')";
+            aceitaSushi.classList.remove('hidden');
+            fogos.classList.remove('hidden');
 
             // Força o vídeo do YouTube a tocar
             const youtubeAudio = document.getElementById('youtube-audio');
