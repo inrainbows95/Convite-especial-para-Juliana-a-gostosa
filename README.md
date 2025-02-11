@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #ffb6c1; /* Fundo rosa */
+            background-color: #ffb6c1;
             padding: 50px;
             margin: 0;
             overflow: hidden;
@@ -41,19 +41,10 @@
             height: auto;
             border-radius: 10px;
             margin-top: 20px;
-            z-index: 2;
-            position: relative;
         }
-        .confirm-box {
+        #certeza-box {
             display: none;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -64,46 +55,34 @@
         <button id="sim">Sim, com certeza!</button>
         <button id="nao">Não</button>
     </div>
-    <img id="aceita-sushi" src="aceita-sushi.png" alt="" class="hidden">
-    
-    <div class="confirm-box" id="confirm-box">
-        <p>Certeza?</p>
-        <button id="confirm-sim">Sim!</button>
+    <div id="certeza-box">
+        <h2>Certeza?</h2>
+        <button id="certeza">Sim!</button>
     </div>
-    
+    <img id="aceita-sushi" src="aceita-sushi.png" alt="Aceita Sushi" class="hidden">
+    <iframe id="youtube-audio" width="0" height="0" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen class="hidden"></iframe>
     <script>
         const simButton = document.getElementById('sim');
         const naoButton = document.getElementById('nao');
+        const certezaBox = document.getElementById('certeza-box');
+        const certezaButton = document.getElementById('certeza');
         const aceitaSushi = document.getElementById('aceita-sushi');
-        const confirmBox = document.getElementById('confirm-box');
-        const confirmSim = document.getElementById('confirm-sim');
-
-        // Faz o botão "Não" fugir do cursor
+        const youtubeAudio = document.getElementById('youtube-audio');
+        
         naoButton.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - naoButton.offsetWidth);
             const y = Math.random() * (window.innerHeight - naoButton.offsetHeight);
             naoButton.style.left = `${x}px`;
             naoButton.style.top = `${y}px`;
         });
-
-        // Ao clicar em "Sim", aparece a confirmação
+        
         simButton.addEventListener('click', () => {
-            confirmBox.style.display = 'block';
+            certezaBox.style.display = 'block';
         });
-
-        // Quando confirma, exibe a imagem e toca a música
-        confirmSim.addEventListener('click', () => {
-            confirmBox.style.display = 'none';
+        
+        certezaButton.addEventListener('click', () => {
             aceitaSushi.classList.remove('hidden');
-            
-            // Cria um elemento de áudio do YouTube
-            const audio = document.createElement('iframe');
-            audio.width = '0';
-            audio.height = '0';
-            audio.src = "https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0";
-            audio.frameBorder = '0';
-            audio.allow = 'autoplay';
-            document.body.appendChild(audio);
+            youtubeAudio.src = "https://www.youtube.com/embed/pfcSqId5Ce4?autoplay=1&controls=0&loop=1";
         });
     </script>
 </body>
