@@ -39,13 +39,13 @@
 <body>
     <h1>A sintaxe da minha vida anda meio confusa...</h1>
     <h2>Será que um encontro com você poderia dar mais sentido a tudo?</h2>
-    <img src="aceita-sushi.jpg" alt="Convite Criativo">
+    <img src="aceita-sushi.jpg" alt="">
     <div class="buttons">
         <button id="sim">Sim</button>
         <button id="nao">Não</button>
     </div>
     <div class="gif-container hidden" id="gif-container">
-        <img src="dancing.gif" alt="Personagem Dançando">
+        <img src="dancing.gif" alt="">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/pfcSqId5Ce4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
